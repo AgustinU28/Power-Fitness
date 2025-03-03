@@ -1,7 +1,8 @@
 # 💪 Power Fitness App
 
 <div align="center">
-(https://github.com/user-attachments/assets/1188ee9e-693d-4578-a1be-3e1f4ce97705)
+![logo](https://github.com/user-attachments/assets/6a0a95fc-030d-4331-b442-654cd06bbed8)
+
 
   <br>
   <p><i>Tu compañero de entrenamiento personal en la palma de tu mano</i></p>
