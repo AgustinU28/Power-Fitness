@@ -23,11 +23,11 @@
 
 <div align="center">
 
-| Tecnología | Uso |
+| 🔧 Tecnología | 🔍 Uso |
 |------------|-----|
-| <img src="https://via.placeholder.com/30?text=RN" style="vertical-align: middle;"> **React Native** | Framework para desarrollo móvil multiplataforma |
-| <img src="https://via.placeholder.com/30?text=Expo" style="vertical-align: middle;"> **Expo** | Plataforma para simplificar el desarrollo React Native |
-| <img src="https://via.placeholder.com/30?text=FB" style="vertical-align: middle;"> **Firebase** | Backend, autenticación y almacenamiento |
+| **React Native** | Framework para desarrollo móvil multiplataforma |
+| **Expo** | Plataforma para simplificar el desarrollo React Native |
+| **Firebase** | Backend, autenticación y almacenamiento |
 
 </div>
 
@@ -138,31 +138,6 @@ npm start
 
 ---
 
-## 📂 Estructura del Proyecto
-
-```
-power-fitness/
-├── 🖼️ assets/              # Imágenes, fuentes y otros recursos
-├── 🧩 components/          # Componentes reutilizables
-│   ├── 🔐 auth/            # Componentes de autenticación
-│   ├── 🏋️ routines/        # Componentes para la sección de rutinas
-│   ├── 📊 progress/        # Componentes para la sección de progreso
-│   ├── 🧘 classes/         # Componentes para la sección de clases
-│   ├── 🛒 store/           # Componentes para la tienda
-│   └── 🔄 shared/          # Componentes compartidos
-├── 📱 screens/             # Pantallas principales
-├── 🧭 navigation/          # Configuración de navegación
-├── 🔌 services/            # Servicios de conexión con Firebase
-├── 🌐 context/             # Context API para estado global
-├── 🪝 hooks/               # Custom hooks
-├── 🛠️ utils/               # Utilidades y funciones auxiliares
-├── 📱 App.js               # Punto de entrada
-├── ⚙️ app.json             # Configuración de Expo
-└── 📦 package.json         # Dependencias
-```
-
----
-
 ## 📸 Capturas de Pantalla
 
 <div align="center">
@@ -174,41 +149,4 @@ power-fitness/
 
 ---
 
-## 🤝 Contribución
 
-Si deseas contribuir a este proyecto, por favor:
-
-1. 🍴 Haz un fork del repositorio
-2. 🌿 Crea una nueva rama (`git checkout -b feature/nueva-caracteristica`)
-3. 💾 Realiza tus cambios y haz commit (`git commit -m 'Agrega nueva característica'`)
-4. 📤 Sube tus cambios (`git push origin feature/nueva-caracteristica`)
-5. 📩 Abre un Pull Request
-
----
-
-## 📜 Licencia
-
-Este proyecto está licenciado bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para más detalles.
-
----
-
-## 📞 Contacto
-
-<div align="center">
-  <a href="mailto:contacto@powerfitness.com">
-    <img src="https://via.placeholder.com/30?text=📧" alt="Email"/>
-  </a>
-  <a href="https://twitter.com/powerfitness">
-    <img src="https://via.placeholder.com/30?text=🐦" alt="Twitter"/>
-  </a>
-  <a href="https://instagram.com/powerfitness">
-    <img src="https://via.placeholder.com/30?text=📸" alt="Instagram"/>
-  </a>
-</div>
-
----
-
-<div align="center">
-  <p>Desarrollado con ❤️ para Power Fitness</p>
-  <p>© 2025 Power Fitness. Todos los derechos reservados</p>
-</div>
