@@ -1,7 +1,8 @@
 # 💪 Power Fitness App
 
 <div align="center">
-  <img src="https://via.placeholder.com/300x150?text=Power+Fitness" alt="Power Fitness Logo" width="300"/>
+![logo](https://github.com/user-attachments/assets/1188ee9e-693d-4578-a1be-3e1f4ce97705)
+
   <br>
   <p><i>Tu compañero de entrenamiento personal en la palma de tu mano</i></p>
 </div>
