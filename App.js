@@ -13,7 +13,7 @@ function App() {
       <CartProvider>
         <SafeAreaView style={{ flex: 1, backgroundColor: THEME.colors.background }}>
           <StatusBar barStyle="dark-content" />
-          <MainApp /> {/* Renderizar MainApp */}
+          <MainApp /> {/* Renderizar MainAp */}
         </SafeAreaView>
       </CartProvider>
     </AuthProvider>
