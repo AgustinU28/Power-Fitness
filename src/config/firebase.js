@@ -1,8 +1,7 @@
-// src/firebase/firebaseConfig.js
+// src/config/firebase.js
 import { initializeApp } from 'firebase/app';
-import { get } from 'firebase/database';  
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
-import { getDatabase, ref, set } from 'firebase/database';
+import { getAuth } from 'firebase/auth';
+import { getDatabase } from 'firebase/database';
 import { 
   FIREBASE_API_KEY,
   FIREBASE_AUTH_DOMAIN,
@@ -15,19 +14,38 @@ import {
 
 // Configuración de Firebase con variables de entorno
 const firebaseConfig = {
-    apiKey: FIREBASE_API_KEY,
-    authDomain: FIREBASE_AUTH_DOMAIN, 
-    databaseURL: FIREBASE_DATABASE_URL,
-    projectId: FIREBASE_PROJECT_ID, 
-    storageBucket: FIREBASE_STORAGE_BUCKET, 
-    messagingSenderId: FIREBASE_MESSAGING_SENDER_ID, 
-    appId: FIREBASE_APP_ID
+  apiKey: FIREBASE_API_KEY,
+  authDomain: FIREBASE_AUTH_DOMAIN,
+  databaseURL: FIREBASE_DATABASE_URL,
+  projectId: FIREBASE_PROJECT_ID,
+  storageBucket: FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: FIREBASE_MESSAGING_SENDER_ID,
+  appId: FIREBASE_APP_ID
 };
 
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const database = getDatabase(app);
-const googleProvider = new GoogleAuthProvider();
 
-export { auth, database, googleProvider, signInWithEmailAndPassword, createUserWithEmailAndPassword, signInWithPopup, ref, set, get };
+// Inicializar servicios
+export const auth = getAuth(app);
+export const database = getDatabase(app);
+
+// Exportar las funciones que necesitas
+export { 
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  signOut,
+  updateProfile,
+  onAuthStateChanged
+} from 'firebase/auth';
+
+export {
+  ref,
+  set,
+  get,
+  push,
+  update,
+  remove
+} from 'firebase/database';
+
+export default app;

@@ -1,42 +1,104 @@
+// src/navigation/AppNavigator.js
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useAuth } from '../contexts/AuthContext.js';
+
+// Navegación con tabs
+import TabNavigator from './TabNavigator.js';
+
+// Pantallas de autenticación
 import HomeScreen from '../screens/dashboard/Home.js';
-import DashboardScreen from '../screens/dashboard/Dashboard';
-import RoutinesScreen from '../screens/routines/RoutinesList';
-import ProgressScreen from '../screens/progress/ProgressTracking';
-import StoreScreen from '../screens/store/store';
-import CartScreen from '../screens/store/Cart';
-import ProfileScreen from '../screens/dashboard/Profile';
-import ClassesScreen from '../screens/classes/Classes.js';
-import PersonalInfoScreen from '../screens/dashboard/PersonalInfoScreen';
-import PaymentMethodsScreen from '../screens/dashboard/PaymentMethodsScreen';
-import OrderHistoryScreen from '../screens/dashboard/OrderHistoryScreen';
-import RoutineDetail from '../screens/routines/RoutineDetail.js';
-import ClassDetail from '../screens/classes/ClassDetail.js'; 
+import LoginScreen from '../screens/auth/Login.js';
+import RegisterScreen from '../screens/auth/Register.js';
+
+// Pantallas adicionales (que se abren encima de los tabs)
+import ProgressScreen from '../screens/progress/ProgressTracking.js';
+import CartScreen from '../screens/store/Cart.js';
 import CheckoutScreen from '../screens/store/Checkout.js';
-import RegisterScreen from '../screens/auth/Register';
-import LoginScreen from '../screens/auth/Login';
+import RoutineDetail from '../screens/routines/RoutineDetail.js';
+import ClassDetail from '../screens/classes/ClassDetail.js';
+import PersonalInfoScreen from '../screens/dashboard/PersonalInfoScreen.js';
+import PaymentMethodsScreen from '../screens/dashboard/PaymentMethodsScreen.js';
+import OrderHistoryScreen from '../screens/dashboard/OrderHistoryScreen.js';
+
 const Stack = createStackNavigator();
 
 const AppNavigator = () => {
+  const { user } = useAuth();
+
   return (
-    <Stack.Navigator initialRouteName="Home">
-      <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Dashboard" component={DashboardScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Routines" component={RoutinesScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Progress" component={ProgressScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Store" component={StoreScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Cart" component={CartScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="Classes" component={ClassesScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="PersonalInfo" component={PersonalInfoScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="PaymentMethods" component={PaymentMethodsScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="OrderHistory" component={OrderHistoryScreen} options={{ headerShown: false }} />
-      <Stack.Screen name="RoutineDetail" component={RoutineDetail} options={{ headerShown: false }} />
-      <Stack.Screen name="ClassDetail" component={ClassDetail} options={{ headerShown: false }} /> 
-      <Stack.Screen name="Checkout" component={CheckoutScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }}/>
-      <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }}/>
+    <Stack.Navigator
+      initialRouteName={user ? "MainTabs" : "Home"}
+      screenOptions={{
+        headerShown: false,
+        cardStyle: { backgroundColor: 'transparent' },
+        cardOverlayEnabled: true,
+      }}
+    >
+      {user ? (
+        // Pantallas para usuarios autenticados
+        <>
+          {/* Tabs principales */}
+          <Stack.Screen 
+            name="MainTabs" 
+            component={TabNavigator}
+            options={{ headerShown: false }}
+          />
+          
+          {/* Pantallas adicionales que se abren encima de los tabs */}
+          <Stack.Screen 
+            name="Progress" 
+            component={ProgressScreen}
+            options={{
+              presentation: 'modal',
+            }}
+          />
+          <Stack.Screen 
+            name="Cart" 
+            component={CartScreen}
+          />
+          <Stack.Screen 
+            name="Checkout" 
+            component={CheckoutScreen}
+          />
+          <Stack.Screen 
+            name="RoutineDetail" 
+            component={RoutineDetail}
+          />
+          <Stack.Screen 
+            name="ClassDetail" 
+            component={ClassDetail}
+          />
+          <Stack.Screen 
+            name="PersonalInfo" 
+            component={PersonalInfoScreen}
+          />
+          <Stack.Screen 
+            name="PaymentMethods" 
+            component={PaymentMethodsScreen}
+          />
+          <Stack.Screen 
+            name="OrderHistory" 
+            component={OrderHistoryScreen}
+          />
+        </>
+      ) : (
+        // Pantallas para usuarios no autenticados
+        <>
+          <Stack.Screen 
+            name="Home" 
+            component={HomeScreen}
+          />
+          <Stack.Screen 
+            name="Login" 
+            component={LoginScreen}
+          />
+          <Stack.Screen 
+            name="Register" 
+            component={RegisterScreen}
+          />
+        </>
+      )}
     </Stack.Navigator>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, TextInput, TouchableOpacity, Text, Alert, ActivityIndicator } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, Alert, ActivityIndicator, ScrollView } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Button from '../../components/buttons/Button.js';
 import Header from '../../components/layout/Header.js';
@@ -13,32 +13,46 @@ const LoginScreen = ({ navigation }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { login, loading } = useAuth();
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleLogin = async () => {
     if (!email || !password) {
       Alert.alert('Error', 'Por favor ingresa email y contraseña');
       return;
     }
+
+    if (!validateEmail(email)) {
+      Alert.alert('Error', 'Por favor ingresa un email válido');
+      return;
+    }
     
     setIsSubmitting(true);
     try {
-      await login(email, password);
-      navigation.navigate('Dashboard'); 
+      const success = await login(email, password);
+      if (success) {
+        // No necesitamos navegar manualmente, el AppNavigator se encargará
+        // cuando el estado de usuario cambie
+        console.log('Login exitoso');
+      }
     } catch (error) {
-      console.error(error);
+      console.error('Login error:', error);
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleForgotPassword = () => {
-    navigation.navigate('ForgotPassword');
-  };
-
   return (
     <View style={styles.container}>
-      <Header title="Iniciar Sesión" onBack={() => navigation.navigate('Dashboard')} />
+      <Header 
+        title="Iniciar Sesión" 
+        onBack={() => navigation.goBack()} 
+        showBack={true}
+      />
 
-      <View style={styles.content}>
+      <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         <MaterialCommunityIcons 
           name="dumbbell" 
           size={60} 
@@ -53,7 +67,9 @@ const LoginScreen = ({ navigation }) => {
             value={email} 
             onChangeText={setEmail} 
             keyboardType="email-address" 
-            autoCapitalize="none" 
+            autoCapitalize="none"
+            autoCorrect={false}
+            editable={!isSubmitting && !loading}
           />
           
           <TextInput 
@@ -61,37 +77,31 @@ const LoginScreen = ({ navigation }) => {
             placeholder="Contraseña" 
             secureTextEntry 
             value={password} 
-            onChangeText={setPassword} 
+            onChangeText={setPassword}
+            editable={!isSubmitting && !loading}
           />
           
-          <TouchableOpacity 
-            style={styles.forgotPassword} 
-            onPress={handleForgotPassword}
-          >
-            <Text style={styles.forgotPasswordText}>
-              ¿Olvidaste tu contraseña?
-            </Text>
-          </TouchableOpacity>
-          
           <Button 
-            title={isSubmitting ? "Procesando..." : "Iniciar Sesión"} 
+            title={isSubmitting ? "Iniciando sesión..." : "Iniciar Sesión"} 
             onPress={handleLogin}
             style={styles.button}
-            disabled={isSubmitting || loading} 
+            disabled={isSubmitting || loading}
+            loading={isSubmitting || loading}
           />
         </View>
         
         <TouchableOpacity 
           style={styles.registerLink} 
           onPress={() => navigation.navigate('Register')}
+          disabled={isSubmitting || loading}
         >
           <Text style={styles.registerText}>
             ¿No tienes cuenta? <Text style={styles.registerHighlight}>Regístrate</Text>
           </Text>
         </TouchableOpacity>
-      </View>
+      </ScrollView>
       
-      {loading && (
+      {(loading || isSubmitting) && (
         <View style={styles.loadingOverlay}>
           <ActivityIndicator size="large" color={THEME.colors.primary} />
         </View>
@@ -103,51 +113,48 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: THEME.colors.white,
   },
   content: {
     flex: 1,
-    padding: THEME.spacing.md,
+    padding: THEME.spacing.lg,
   },
   icon: {
     alignSelf: 'center',
-    margin: THEME.spacing.lg,
+    marginVertical: THEME.spacing.xl,
   },
   form: {
     width: '100%',
+    marginBottom: THEME.spacing.lg,
   },
   input: {
-    borderBottomWidth: 1,
-    borderBottomColor: THEME.colors.border,
-    marginVertical: THEME.spacing.sm,
+    borderWidth: 1,
+    borderColor: THEME.colors.border,
+    borderRadius: THEME.borderRadius.sm,
+    paddingHorizontal: THEME.spacing.md,
     paddingVertical: THEME.spacing.sm,
-    fontSize: 16,
-  },
-  forgotPassword: {
-    alignSelf: 'flex-end',
     marginVertical: THEME.spacing.sm,
-  },
-  forgotPasswordText: {
-    color: THEME.colors.primary,
-    fontSize: 14,
+    fontSize: THEME.fontSize.md,
+    backgroundColor: THEME.colors.white,
   },
   button: {
-    marginTop: THEME.spacing.md,
+    marginTop: THEME.spacing.lg,
   },
   registerLink: {
     marginTop: THEME.spacing.lg,
+    alignItems: 'center',
   },
   registerText: {
-    textAlign: 'center',
-    fontSize: 14,
+    fontSize: THEME.fontSize.sm,
+    color: THEME.colors.text,
   },
   registerHighlight: {
     color: THEME.colors.primary,
-    fontWeight: 'bold',
+    fontWeight: THEME.fontWeight.bold,
   },
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
-    backgroundColor: 'rgba(255, 255, 255, 0.7)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1000,
