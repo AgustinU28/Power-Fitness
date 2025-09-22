@@ -1,10 +1,7 @@
 # 💪 Power Fitness App
 
-<div align="center">
-  <img src="https://via.placeholder.com/300x150?text=Power+Fitness" alt="Power Fitness Logo" width="300"/>
-  <br>
-  <p><i>Tu compañero de entrenamiento personal en la palma de tu mano</i></p>
-</div>
+![logo](https://github.com/user-attachments/assets/f6563f7c-c6d2-40a6-a5f6-8514f7f0f5d8)
+
 
 ---
 
@@ -139,13 +136,10 @@ npm start
 ---
 
 ## 📸 Capturas de Pantalla
+![inicio de secion](https://github.com/user-attachments/assets/292a20a2-69c0-42aa-8cf1-199143a28c2e)
+![registro](https://github.com/user-attachments/assets/4c690a99-6c8d-4fc3-9e10-64a246b58add)
+![inicio](https://github.com/user-attachments/assets/b11abd9f-7c72-4e54-a948-ed13b8ad6457)
 
-<div align="center">
-  <img src="https://via.placeholder.com/150?text=Login" alt="Login Screen" width="150"/>
-  <img src="https://via.placeholder.com/150?text=Rutinas" alt="Routines Screen" width="150"/>
-  <img src="https://via.placeholder.com/150?text=Progreso" alt="Progress Screen" width="150"/>
-  <img src="https://via.placeholder.com/150?text=Tienda" alt="Store Screen" width="150"/>
-</div>
 
 ---
 
