@@ -31,21 +31,24 @@ const DashboardScreen = ({ navigation }) => {
       title: 'Rutinas', 
       screen: 'Routines', 
       color: '#FF6B6B',
-      description: 'Planes de entrenamiento'
+      description: 'Planes de entrenamiento',
+      isInTabs: true,
     },
     { 
       icon: 'chart-line', 
       title: 'Progreso', 
       screen: 'Progress', 
       color: '#4ECDC4',
-      description: 'Revisa tu evolución'
+      description: 'Revisa tu evolución',
+      isInTabs: false, // Progress es modal, no está en tabs
     },
     { 
       icon: 'calendar-check', 
       title: 'Clases', 
       screen: 'Classes', 
       color: '#FFD166',
-      description: 'Reservar clases grupales'
+      description: 'Reservar clases grupales',
+      isInTabs: true,
     }, 
     { 
       icon: 'store', 
@@ -53,7 +56,8 @@ const DashboardScreen = ({ navigation }) => {
       screen: 'Store', 
       color: '#6A0572',
       description: 'Suplementos y productos',
-      badge: totalItems > 0 ? totalItems : null
+      badge: totalItems > 0 ? totalItems : null,
+      isInTabs: true,
     },
   ];
 
@@ -62,6 +66,17 @@ const DashboardScreen = ({ navigation }) => {
     { label: 'Clases tomadas', value: '8', icon: 'calendar-check' },
     { label: 'Días activo', value: '15', icon: 'fire' },
   ];
+
+  // Función para navegar correctamente según si la screen está en tabs o no
+  const handleNavigate = (item) => {
+    if (item.isInTabs) {
+      // Para screens dentro de tabs, navega directamente
+      navigation.navigate(item.screen);
+    } else {
+      // Para screens fuera de tabs (como Progress), navega desde el nivel superior
+      navigation.navigate(item.screen);
+    }
+  };
 
   if (loading) {
     return (
@@ -184,7 +199,7 @@ const DashboardScreen = ({ navigation }) => {
               alignItems: 'center',
               ...THEME.shadows.small,
             }}
-            onPress={() => navigation.navigate(item.screen)}
+            onPress={() => handleNavigate(item)}
           >
             <View style={{
               width: 50,

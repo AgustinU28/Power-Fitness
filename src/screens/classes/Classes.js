@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, Image, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Header from '../../components/layout/Header.js';
+import { THEME } from '../../../theme.js';
 
 const ClassesScreen = () => {
   const navigation = useNavigation();
@@ -53,11 +55,10 @@ const ClassesScreen = () => {
 
   return (
     <View style={styles.screenContainer}>
-      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.backButton}>
-        <MaterialCommunityIcons name="arrow-left" size={24} color="#000" />
-      </TouchableOpacity>
-      
-      <Text style={styles.title}>Reserva de Clases</Text>
+      <Header 
+        title="Reserva de Clases" 
+        onBack={() => navigation.goBack()}
+      />
       
       <FlatList
         data={classes}
@@ -78,6 +79,7 @@ const ClassesScreen = () => {
           </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id.toString()}
+        contentContainerStyle={styles.listContainer}
       />
     </View>
   );
@@ -86,25 +88,11 @@ const ClassesScreen = () => {
 const styles = StyleSheet.create({
   screenContainer: {
     flex: 1,
-    paddingTop: 20,
-    backgroundColor: '#f5f5f5',
-    paddingHorizontal: 16,
+    backgroundColor: THEME.colors.background,
   },
-  backButton: {
-    position: 'absolute',
-    top: 40,
-    left: 16,
-    zIndex: 1,
-    padding: 8,
-    backgroundColor: 'rgba(255, 255, 255, 0.6)',
-    borderRadius: 50,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginTop: 70,
-    textAlign: 'center',
-    color: '#333',
+  listContainer: {
+    padding: THEME.spacing.md,
+    paddingBottom: 100,
   },
   classCard: {
     marginBottom: 20,
